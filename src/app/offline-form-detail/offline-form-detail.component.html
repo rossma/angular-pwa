@@ -1,0 +1,63 @@
+<div>
+  <label>name:
+    <input [(ngModel)]="offlineForm.name" placeholder="name">
+  </label>
+</div>
+<div>
+  <form (ngSubmit)="saveForm()" #tagForm="ngForm">
+    <button type="submit" class="btn btn-success" [disabled]="!tagForm.form.valid">Submit</button>
+    <table>
+      <thead>
+      <tr>
+        <th>IDX</th>
+        <th>Animal Tag</th>
+        <th>Status</th>
+        <th>1A</th>
+        <th>1B</th>
+        <th>4A</th>
+        <th>SWL A</th>
+        <th>4B</th>
+        <th>SWL B</th>
+        <th>Res</th>
+        <th>Location</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of offlineForm.items; let idx = index" [attr.data-index]="idx">
+        <td>{{ idx }}</td>
+        <td>{{ item.name }}</td>
+        <td>
+          <select (change)="onStatusChange($event.target.value, item)">
+            <option *ngFor="let status of statuses"
+                    [value]="status.value"
+                    [selected]="status.value === item.status"
+            >
+              {{status.text}}
+            </option>
+          </select>
+        </td>
+        <td><input class="sm" type="text" name="1A-{{idx}}" [(ngModel)]="item['1A']"></td>
+        <td><input class="sm" type="text" name="1B-{{idx}}" [(ngModel)]="item['1B']"></td>
+        <td><input class="sm" type="text" name="4A-{{idx}}" [(ngModel)]="item['4A']"></td>
+        <td>
+          <select (change)="onSwlAChange($event.target.value, item)">
+          <option *ngFor="let swlItem of swlItems"
+                    [value]="swlItem"
+                    [selected]="swlItem === item.swlA"
+            >
+              {{swlItem}}
+            </option>
+          </select>
+        </td>
+        <td>{{ item["4B"] }}</td>
+        <td>{{ item.swlB }}</td>
+        <td>{{ item.res }}</td>
+        <td>{{ item.location }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+<div>
+  <button (click)="goBack()">go back</button>
+</div>

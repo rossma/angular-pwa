@@ -1,0 +1,8 @@
+<h2>Offline Forms</h2>
+<ul class="forms">
+  <li *ngFor="let offlineForm of offlineForms" (click)="onSelect(offscreenBuffering)">
+    <a routerLink="/offline-form-detail/{{offlineForm.id}}">
+      <span>[{{offlineForm.id}}]</span> {{offlineForm.name}}
+    </a>
+  </li>
+</ul>
